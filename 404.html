@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sextant</title>
+    <meta name="theme-color" content="#212529" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Sextant" />
+    <base href="/Sextant-public/" />
+    <link href="_framework/dotnet.bgkwymnefs.js" rel="preload" as="script" fetchpriority="high" crossorigin="anonymous" integrity="sha256-dWaWbyUgkYmP1vQ9Es0gx8pE/Vml+tvF9YAaEVs3R1Y=" />
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link href="manifest.webmanifest" rel="manifest" />
+    <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
+    <link href="Sextant.Web.styles.css" rel="stylesheet" />
+    <script type="importmap">{
+  "imports": {
+    "./_framework/blazor.webassembly.js": "./_framework/blazor.webassembly.958z1vx7fr.js",
+    "./_framework/dotnet.js": "./_framework/dotnet.bgkwymnefs.js",
+    "./_framework/dotnet.native.js": "./_framework/dotnet.native.bjoj0wmylw.js",
+    "./_framework/dotnet.runtime.js": "./_framework/dotnet.runtime.5nc8i5dl74.js"
+  },
+  "scopes": {},
+  "integrity": {
+    "./_framework/blazor.webassembly.958z1vx7fr.js": "sha256-A59Tr9HqEhHMu8kU7kruLI9ayw5MRS6Lvc6z7jCbghk=",
+    "./_framework/blazor.webassembly.js": "sha256-A59Tr9HqEhHMu8kU7kruLI9ayw5MRS6Lvc6z7jCbghk=",
+    "./_framework/dotnet.bgkwymnefs.js": "sha256-dWaWbyUgkYmP1vQ9Es0gx8pE/Vml+tvF9YAaEVs3R1Y=",
+    "./_framework/dotnet.js": "sha256-dWaWbyUgkYmP1vQ9Es0gx8pE/Vml+tvF9YAaEVs3R1Y=",
+    "./_framework/dotnet.native.bjoj0wmylw.js": "sha256-CZ0IVZkLTIvee7n1yVvOitlJWNdj/YjaFgpMgliIM64=",
+    "./_framework/dotnet.native.js": "sha256-CZ0IVZkLTIvee7n1yVvOitlJWNdj/YjaFgpMgliIM64=",
+    "./_framework/dotnet.runtime.5nc8i5dl74.js": "sha256-/3dBg9sj1yLD3h0PDMHnNUXWs/2zWwIMEzom1Xz3Q40=",
+    "./_framework/dotnet.runtime.js": "sha256-/3dBg9sj1yLD3h0PDMHnNUXWs/2zWwIMEzom1Xz3Q40="
+  }
+}</script>
+</head>
+
+<body>
+    <div id="app">
+        <svg class="loading-progress">
+            <circle r="40%" cx="50%" cy="50%" />
+            <circle r="40%" cx="50%" cy="50%" />
+        </svg>
+        <div class="loading-progress-text"></div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="." class="reload">Reload</a>
+        <span class="dismiss">&#x2715;</span>
+    </div>
+    <script>
+        // Cognito has no end_session_endpoint: logout clears the oidc-client session stored by
+        // AuthenticationService.js and then redirects to Cognito's /logout endpoint (see CognitoLogoutService).
+        window.sextant = {
+            clearOidcSession: function () {
+                for (const storage of [window.sessionStorage, window.localStorage]) {
+                    const keys = [];
+                    for (let i = 0; i < storage.length; i++) {
+                        const key = storage.key(i);
+                        if (key && key.startsWith("oidc.")) {
+                            keys.push(key);
+                        }
+                    }
+                    keys.forEach(k => storage.removeItem(k));
+                }
+            }
+        };
+    </script>
+    <script src="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService.js"></script>
+    <script src="_framework/blazor.webassembly.958z1vx7fr.js"></script>
+    <script src="js/pwa-update.js"></script>
+</body>
+
+</html>
